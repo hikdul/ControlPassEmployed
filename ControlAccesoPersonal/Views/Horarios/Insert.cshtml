@@ -1,0 +1,379 @@
+﻿@model ControlAccesoPersonal.Models.Horarios
+
+@{
+    ViewData["Title"] = "Insert";
+    string accion = Model == null ? "Nuevo" : "Editar";
+
+    #region decllaracion de fechas
+
+    string LuneshoraI;
+    string LuneshoraBS;
+    string LuneshoraBI;
+    string LuneshoraS;
+
+    string MarteshoraI;
+    string MarteshoraBS;
+    string MarteshoraBI;
+    string MarteshoraS;
+
+    string MiercoleshoraI;
+    string MiercoleshoraBS;
+    string MiercoleshoraBI;
+    string MiercoleshoraS;
+
+    string JueveshoraI;
+    string JueveshoraBS;
+    string JueveshoraBI;
+    string JueveshoraS;
+
+    string VierneshoraI;
+    string VierneshoraBS;
+    string VierneshoraBI;
+    string VierneshoraS;
+
+    string SabadohoraI;
+    string SabadohoraBS;
+    string SabadohoraBI;
+    string SabadohoraS;
+
+    string DomingohoraI;
+    string DomingohoraBS;
+    string DomingohoraBI;
+    string DomingohoraS;
+
+
+    if (Model != null)
+    {
+        LuneshoraI = Model.Lunes.HoraI;
+        LuneshoraBS = Model.Lunes.HoraBS;
+        LuneshoraBI = Model.Lunes.HoraBI;
+        LuneshoraS = Model.Lunes.HoraS;
+
+
+        MarteshoraI = Model.Martes.HoraI;
+        MarteshoraBS = Model.Martes.HoraBS;
+        MarteshoraBI = Model.Martes.HoraBI;
+        MarteshoraS = Model.Martes.HoraS;
+
+
+        MiercoleshoraI = Model.Miercoles.HoraI;
+        MiercoleshoraBS = Model.Miercoles.HoraBS;
+        MiercoleshoraBI = Model.Miercoles.HoraBI;
+        MiercoleshoraS = Model.Miercoles.HoraS;
+
+        JueveshoraI = Model.Jueves.HoraI;
+        JueveshoraBS = Model.Jueves.HoraBS;
+        JueveshoraBI = Model.Jueves.HoraBI;
+        JueveshoraS = Model.Jueves.HoraS;
+
+        VierneshoraI = Model.Viernes.HoraI;
+        VierneshoraBS = Model.Viernes.HoraBS;
+        VierneshoraBI = Model.Viernes.HoraBI;
+        VierneshoraS = Model.Viernes.HoraS;
+
+        SabadohoraI = Model.Sabado.HoraI;
+        SabadohoraBS = Model.Sabado.HoraBS;
+        SabadohoraBI = Model.Sabado.HoraBI;
+        SabadohoraS = Model.Sabado.HoraS;
+
+        DomingohoraI = Model.Domingo.HoraI;
+        DomingohoraBS = Model.Domingo.HoraBS;
+        DomingohoraBI = Model.Domingo.HoraBI;
+        DomingohoraS = Model.Domingo.HoraS;
+    }
+    else
+    {
+        LuneshoraI = "00:00";
+        LuneshoraBS = "00:00";
+        LuneshoraBI = "00:00";
+        LuneshoraS = "00:00";
+
+
+        MarteshoraI = "00:00";
+        MarteshoraBS = "00:00";
+        MarteshoraBI = "00:00";
+        MarteshoraS = "00:00";
+
+
+        MiercoleshoraI = "00:00";
+        MiercoleshoraBS = "00:00";
+        MiercoleshoraBI = "00:00";
+        MiercoleshoraS = "00:00";
+
+        JueveshoraI = "00:00";
+        JueveshoraBS = "00:00";
+        JueveshoraBI = "00:00";
+        JueveshoraS = "00:00";
+
+        VierneshoraI = "00:00";
+        VierneshoraBS = "00:00";
+        VierneshoraBI = "00:00";
+        VierneshoraS = "00:00";
+
+        SabadohoraI = "00:00";
+        SabadohoraBS = "00:00";
+        SabadohoraBI = "00:00";
+        SabadohoraS = "00:00";
+
+        DomingohoraI = "00:00";
+        DomingohoraBS = "00:00";
+        DomingohoraBI = "00:00";
+        DomingohoraS = "00:00";
+    }
+
+    #endregion
+}
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div>
+
+            <h1 class="text-center">@accion Horario</h1>
+        </div>
+    </div>
+    <div class="card-body">
+        <form asp-action=@accion class="form-check">
+            <div class="card-column">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div hidden class="form-group">
+                    <label hidden asp-for="id" class="control-label"></label>
+                    <input hidden asp-for="id" class="form-control text-center" />
+                    <span hidden asp-validation-for="id" class="text-danger"></span>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <h2 class="control-label card-title card-header">Nombre</h2>
+                            <input asp-for="nombre" class="form-control text-center" />
+                            <span asp-validation-for="nombre" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-4"></div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card-title card-header">
+                            <h3>Lunes</h3>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Lunes.HoraI" class="control-label"></label>
+                            <input type="time" asp-for="Lunes.HoraI" value=@LuneshoraI class="form-control text-center" />
+                            <span asp-validation-for="Lunes.HoraI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Lunes.HoraBS" class="control-label"></label>
+                            <input type="time" asp-for="Lunes.HoraBS" value=@LuneshoraBS class="form-control text-center" />
+                            <span asp-validation-for="Lunes.HoraBS" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Lunes.HoraBI" class="control-label"></label>
+                            <input type="time" asp-for="Lunes.HoraBI" value=@LuneshoraBI class="form-control text-center" />
+                            <span asp-validation-for="Lunes.HoraBI" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Lunes.HoraS" class="control-label"></label>
+                            <input type="time" asp-for="Lunes.HoraS" value=@LuneshoraS class="form-control text-center" />
+                            <span asp-validation-for="Lunes.HoraS" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="card-title card-header">
+                            <h3>Martes</h3>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Martes.HoraI" class="control-label"></label>
+                            <input type="time" asp-for="Martes.HoraI" value=@MarteshoraI class="form-control text-center" />
+                            <span asp-validation-for="Martes.HoraI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Martes.HoraBS" class="control-label"></label>
+                            <input type="time" asp-for="Martes.HoraBS" value=@MarteshoraBS class="form-control text-center" />
+                            <span asp-validation-for="Martes.HoraBS" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Martes.HoraBI" class="control-label"></label>
+                            <input type="time" asp-for="Martes.HoraBI" value=@MarteshoraBI class="form-control text-center" />
+                            <span asp-validation-for="Martes.HoraBI" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Martes.HoraS" class="control-label"></label>
+                            <input type="time" asp-for="Martes.HoraS" value=@MarteshoraS class="form-control text-center" />
+                            <span asp-validation-for="Martes.HoraS" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="card-title card-header">
+                            <h3>Miercoels</h3>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Miercoles.HoraI" class="control-label"></label>
+                            <input type="time" asp-for="Miercoles.HoraI" value=@MiercoleshoraI class="form-control text-center" />
+                            <span asp-validation-for="Miercoles.HoraI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Miercoles.HoraBS" class="control-label"></label>
+                            <input type="time" asp-for="Miercoles.HoraBS" value=@MiercoleshoraBS class="form-control text-center" />
+                            <span asp-validation-for="Miercoles.HoraBS" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Miercoles.HoraBI" class="control-label"></label>
+                            <input type="time" asp-for="Miercoles.HoraBI" value=@MiercoleshoraBI class="form-control text-center" />
+                            <span asp-validation-for="Miercoles.HoraBI" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Miercoles.HoraS" class="control-label"></label>
+                            <input type="time" asp-for="Miercoles.HoraS" value=@MiercoleshoraS class="form-control text-center" />
+                            <span asp-validation-for="Miercoles.HoraS" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-4">
+                        <div class="card-title card-header">
+                            <h3>Jueves</h3>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Jueves.HoraI" class="control-label"></label>
+                            <input type="time" asp-for="Jueves.HoraI" value=@JueveshoraI class="form-control text-center" />
+                            <span asp-validation-for="Jueves.HoraI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Jueves.HoraBS" class="control-label"></label>
+                            <input type="time" asp-for="Jueves.HoraBS" value=@JueveshoraBS class="form-control text-center" />
+                            <span asp-validation-for="Jueves.HoraBS" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Jueves.HoraBI" class="control-label"></label>
+                            <input type="time" asp-for="Jueves.HoraBI" value=@JueveshoraBI class="form-control text-center" />
+                            <span asp-validation-for="Jueves.HoraBI" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Jueves.HoraS" class="control-label"></label>
+                            <input type="time" asp-for="Jueves.HoraS" value=@JueveshoraS class="form-control text-center" />
+                            <span asp-validation-for="Jueves.HoraS" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="card-title card-header">
+                            <h3>Viernes</h3>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Viernes.HoraI" class="control-label"></label>
+                            <input type="time" asp-for="Viernes.HoraI" value=@VierneshoraI class="form-control text-center" />
+                            <span asp-validation-for="Viernes.HoraI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Viernes.HoraBS" class="control-label"></label>
+                            <input type="time" asp-for="Viernes.HoraBS" value=@VierneshoraBS class="form-control text-center" />
+                            <span asp-validation-for="Viernes.HoraBS" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Viernes.HoraBI" class="control-label"></label>
+                            <input type="time" asp-for="Viernes.HoraBI" value=@VierneshoraBI class="form-control text-center" />
+                            <span asp-validation-for="Viernes.HoraBI" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Viernes.HoraS" class="control-label"></label>
+                            <input type="time" asp-for="Viernes.HoraS" value=@VierneshoraS class="form-control text-center" />
+                            <span asp-validation-for="Viernes.HoraS" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="card-title card-header">
+                            <h3>Sabado</h3>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Sabado.HoraI" class="control-label"></label>
+                            <input type="time" asp-for="Sabado.HoraI" value=@SabadohoraI class="form-control text-center" />
+                            <span asp-validation-for="Sabado.HoraI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Sabado.HoraBS" class="control-label"></label>
+                            <input type="time" asp-for="Sabado.HoraBS" value=@SabadohoraBS class="form-control text-center" />
+                            <span asp-validation-for="Sabado.HoraBS" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Sabado.HoraBI" class="control-label"></label>
+                            <input type="time" asp-for="Sabado.HoraBI" value=@SabadohoraBI class="form-control text-center" />
+                            <span asp-validation-for="Sabado.HoraBI" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Sabado.HoraS" class="control-label"></label>
+                            <input type="time" asp-for="Sabado.HoraS" value=@SabadohoraS class="form-control text-center" />
+                            <span asp-validation-for="Sabado.HoraS" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row mt-5">
+                    <div class="col-4"> </div>
+
+                    <div class="col-4">
+                        <div class="card-title card-header">
+                            <h3>Domingo</h3>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Domingo.HoraI" class="control-label"></label>
+                            <input type="time" asp-for="Domingo.HoraI" value=@DomingohoraI class="form-control text-center" />
+                            <span asp-validation-for="Domingo.HoraI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Domingo.HoraBS" class="control-label"></label>
+                            <input type="time" asp-for="Domingo.HoraBS" value=@DomingohoraBS class="form-control text-center" />
+                            <span asp-validation-for="Domingo.HoraBS" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Domingo.HoraBI" class="control-label"></label>
+                            <input type="time" asp-for="Domingo.HoraBI" value=@DomingohoraBI class="form-control text-center" />
+                            <span asp-validation-for="Domingo.HoraBI" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Domingo.HoraS" class="control-label"></label>
+                            <input type="time" asp-for="Domingo.HoraS" value=@DomingohoraS class="form-control text-center" />
+                            <span asp-validation-for="Domingo.HoraS" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-4"> </div>
+                </div>
+            </div>
+
+
+            <!--botom-->
+            <div class="form-group text-center mt-5">
+
+                <button asp-action=@accion asp-controller="Horarios" class="btn btn-dark m-5">@accion</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,84 @@
+﻿@using ControlAccesoPersonal.Models;
+@using ControlAccesoPersonal.DataTransferObjects;
+@model IEnumerable<AdmoHorarios>
+
+@{
+    ViewData["Title"] = "Index";
+    List<Horarios> ListaH = ViewBag.listaHorarios;
+    List<Persona> ListaP = ViewBag.listapersonas;
+    List<Empleados> ListaE = ViewBag.listaEmpleado;
+    string band = "";
+    string mensaje = ViewBag.mensaje;
+}
+
+@*<h1>Index</h1>*@
+
+@if (!String.IsNullOrEmpty(mensaje))
+{
+    <div class="alert alert-warning" role="alert">
+        @mensaje
+    </div>
+}
+
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div>
+            <a class="btn btn-dark float-right" asp-action="insert">Nuevo Adminitrador</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Empleado)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.horario)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.fechaInicio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.fechaAcaba)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @foreach (var emp in ListaE)
+                                {
+                                    band = ListaP.Find(p => p.id == emp.persona).rut;
+                                }
+
+                                @band
+                            </td>
+                            <td>
+                                @ListaH.Find(h => h.id == item.horario).nombre;
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fechaInicio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fechaAcaba)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "insert", "AdministradorDeHorarios", new { id = item.id }, new { @class = "btn btn-primary text-light" })
+                                @Html.ActionLink("Eliminar", "Eliminar", "AdministradorDeHorarios", new { id = item.id }, new { @class = "btn btn-danger text-light" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

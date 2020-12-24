@@ -1,0 +1,101 @@
+﻿
+@using ControlAccesoPersonal.Models;
+@using ControlAccesoPersonal.DataTransferObjects;
+@model IEnumerable<Empleados>
+
+@{
+    ViewData["Title"] = "Index";
+    List<Empresa> listaEmpresa = ViewBag.listaEmpresa;
+    List<Persona> listaPersonas = ViewBag.listaPersonas;
+
+    string mensaje = ViewBag.mensaje;
+}
+
+@*<h1>Index</h1>*@
+
+@if (!String.IsNullOrEmpty(mensaje))
+{
+    <div class="alert alert-warning" role="alert">
+        @mensaje
+    </div>
+}
+
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div>
+            <a class="btn btn-dark float-right" asp-action="insert">Agregar Empleado...</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.id)
+                        </th>*@
+                        <th>
+                           
+
+                            @Html.DisplayNameFor(model => model.empresa)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.persona)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.sueldo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cargo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.articulo)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.id)
+                            </td>*@
+                            <td>
+                                @listaEmpresa.Find(x => x.id == item.empresa).nombre
+                            </td>
+                            <td>
+                                @listaPersonas.Find(x => x.id == item.persona).rut
+                                @*@Html.DisplayFor(modelItem => item.persona)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.sueldo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.cargo) 
+                            </td>
+                            <td>
+                                @if (item.articulo)
+                                {
+                                    <p>SI</p>
+                                }
+                                else
+                                {
+                                    <p>NO</p>
+                                }
+
+                                @*@Html.DisplayFor(modelItem => item.articulo)*@
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "insert", "Empleados", new { id = item.id }, new { @class = "btn btn-primary text-light" })
+                                @Html.ActionLink("Eliminar", "Eliminar", "Empleados", new { id = item.id }, new { @class = "btn btn-danger text-light" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

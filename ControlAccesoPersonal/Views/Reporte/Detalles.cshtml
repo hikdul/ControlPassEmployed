@@ -1,0 +1,220 @@
+﻿@using ControlAccesoPersonal.DataTransferObjects;
+@model InformeEntreFechasDetallado
+
+@{
+    ViewData["Title"] = "Detalles";
+    string mensaje = ViewBag.mensaje;
+    int idEmpleado = Model.Empleado.id;
+}
+
+@*<h1>Index</h1>*@
+
+@if (!String.IsNullOrEmpty(mensaje))
+{
+    <div class="alert alert-warning" role="alert">
+        @mensaje
+    </div>
+}
+
+
+<form asp-action="Index" asp-controller="Reporte">
+    <div class="card mb-5">
+        <div class="card-header flex-wrap">
+
+            <div class="input-group flex-nowrap">
+                <label for="fechaInicio"> <span class="input-group-text" id="addon-wrapping1">Fecha Inicio</span> </label>
+                <input class="form-control" type="date" aria-describedby="addon-wrapping1" name="fechaInicio" max=@DateTime.Now.ToString("yyyy-MM-dd") value=@DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd") id="fechaInicio" />
+                @*</div>
+                    <div class="input-group flex-nowrap">*@
+
+                <label for="fechaFinal"> <span class="input-group-text" id="addon-wrapping2">Fecha Fin</span></label>
+                <input class="form-control" type="date" aria-describedby="addon-wrapping2" name="fechaFinal" value=@DateTime.Now.ToString("yyyy-MM-dd") max=@DateTime.Now.ToString("yyyy-MM-dd") id="fechaFinal" />
+            </div>
+            <div class="input-group flex-column text-center">
+                <select asp-for="@idEmpleado" class="form-control" asp-items="@ViewBag.listaGente"></select>
+                
+                <input class="btn btn-primary" type="submit" value="Buscar" />
+            </div>
+
+        </div>
+    </div>
+</form>
+
+@if (Model != null)
+{
+    <div class="card mb-4">
+        @*//aqui ira la cabecera de cada tarjeta con los nombres del personaje*@
+        <div class="card-header">
+            <h3 class="text-center">
+
+                @Html.DisplayFor(modelItem => Model.Persona.nombre)
+                @Html.DisplayFor(modelItem => Model.Persona.nombre2)
+                @Html.DisplayFor(modelItem => Model.Persona.apellido)
+                @Html.DisplayFor(modelItem => Model.Persona.apellido2)
+            </h3>
+            <p class="text-left"> <b>RUT: </b>  @Html.DisplayFor(modelItem => Model.Persona.rut) </p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                    <tbody>
+                        <tr>
+                            @*<th></th>
+                                <td></td>*@
+                            <th> Horas Segun Horario </th>
+                            <td class="bg-dark text-light">  @Html.DisplayFor(modelItem => Model.HorasDeberiaCumplir)  </td>
+                            @*<th></th>
+                                <td></td>*@
+                        </tr>
+
+                        <tr>
+                            <th> Tiempo Total Cumplido(HH:mm) </th>
+                            @if (Model.HorasDeberiaCumplir <= Model.HorasCumplidas)
+                            {
+                                <td class="bg-success text-light">  @Html.DisplayFor(modelItem => Model.extraMinutosCumplidos):@Html.DisplayFor(modelItem => Model.extraMinutosCumplidos)  </td>
+                            }
+                            else
+                            {
+                                <td class="bg-danger text-light">  @Html.DisplayFor(modelItem => Model.extraMinutosCumplidos):@Html.DisplayFor(modelItem => Model.extraMinutosCumplidos)  </td>
+                            }
+
+                            <th> Tiempo Extra(min) </th>
+                            @if (Model.minutosExtras >= Model.minutosTardanza)
+                            {
+                                <td class="bg-success text-light">  @Html.DisplayFor(modelItem => Model.minutosExtras)</td>
+                            }
+                            else
+                            {
+
+                                <td class="bg-danger text-light">  @Html.DisplayFor(modelItem => Model.minutosExtras)</td>
+                            }
+
+                            <th> Descanzos </th>
+                            <td class="bg-dark text-light">  @Html.DisplayFor(modelItem => Model.descanzos)</td>
+
+                            <th> Feriados Trabajados </th>
+                            <td class="bg-dark text-light">  @Html.DisplayFor(modelItem => Model.FeriadoTrabajados)</td>
+                        </tr>
+
+
+                        <tr>
+                            <th> Dias Con Tardanza </th>
+                            @if (Model.DiasConRetrazoEntrada > 0)
+                            {
+
+                                <td class="bg-danger text-light">  @Html.DisplayFor(modelItem => Model.DiasConRetrazoEntrada)</td>
+                            }
+                            else
+                            {
+                                <td class="bg-success text-light">  @Html.DisplayFor(modelItem => Model.DiasConRetrazoEntrada)</td>
+
+                            }
+
+
+
+                            <th> Tiempo Total Tardanzas( min) </th>
+                            @if (Model.minutosExtras >= Model.minutosTardanza)
+                            {
+                                <td class="bg-success text-light">  @Html.DisplayFor(modelItem => Model.minutosTardanza)</td>
+                            }
+                            else
+                            {
+                                <td class="bg-danger text-light">  @Html.DisplayFor(modelItem => Model.minutosTardanza)</td>
+                            }
+
+                            <th> Dias Faltados </th>
+                            @if (Model.DiaFaltados > 0)
+                            {
+                                <td class="bg-danger text-light">  @Html.DisplayFor(modelItem => Model.DiaFaltados)</td>
+                            }
+                            else
+                            {
+                                <td class="bg-success text-light">  @Html.DisplayFor(modelItem => Model.DiaFaltados)</td>
+                            }
+
+                            <th> Dias Con Marcas Faltantes </th>
+                            @if (Model.MarcasFaltantes > 0)
+                            {
+                                <td class="bg-danger text-light">  @Html.DisplayFor(modelItem => Model.MarcasFaltantes)</td>
+                            }
+                            else
+                            {
+                                <td class="bg-success text-light">  @Html.DisplayFor(modelItem => Model.MarcasFaltantes)</td>
+
+                            }
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+   @*<div class="REGISTROS">
+       @foreach (var elemento in Model.ListaRegistros)
+       {
+           <p>elemento</p>
+       }
+
+
+   </div>*@
+
+
+    <!--aqui empiezo a imprimir mis registros-->
+    <!--<div class="card mb-4">-->
+        @*//aqui ira la cabecera de cada tarjeta con los nombres del personaje*@
+        <!--<div class="card-header">
+           <h3> Registros Diario </h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>fecha</th>
+                            <th>Hora Ingreso</th>
+                            <th>Break Salida</th>
+                            <th>Break Ingreso</th>
+                            <th>Hora Salida</th>
+                        </tr>
+                    </thead>
+                    <tbody>-->
+                        @*@foreach (var reg in Model.ListaRegistros)*@
+                        <!--{
+                        <tr>
+                            <td>-->
+                                @*@Html.DisplayFor(modelItem => reg.fecha)*@
+                            <!--</td>
+                            <td>-->
+                                @*@Html.DisplayFor(modelItem => reg.HoraI)*@
+                            <!--</td>
+                            <td>-->
+                                @*@Html.DisplayFor(modelItem => reg.HoraBS)*@
+                            <!--</td>
+                            <td>-->
+                                @*@Html.DisplayFor(modelItem => reg.HoraBI)*@
+                            <!--</td>
+                            <td>-->
+                                @*@Html.DisplayFor(modelItem => reg.HoraS)*@
+                            <!--</td>
+                        </tr>
+                        }
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>-->
+
+
+}

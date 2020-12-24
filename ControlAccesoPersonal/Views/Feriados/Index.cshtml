@@ -1,0 +1,92 @@
+﻿@using ControlAccesoPersonal.Models;
+@model IEnumerable<Feriados>
+
+@{
+    ViewData["Title"] = "Index";
+    string mensaje = ViewBag.mensaje;
+}
+
+@*<h1>Index</h1>*@
+
+@if (!String.IsNullOrEmpty(mensaje))
+{
+    <div class="alert alert-warning" role="alert">
+        @mensaje
+    </div>
+}
+
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div>
+            <a class="btn btn-dark float-right" asp-action="insert">Agregar Feriado...</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.fecha)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.anual)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fecha)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.description)
+                            </td>
+                            <td>
+                                @if (item.anual)
+                                {
+                                    <p>SI</p>
+                                }
+                                else
+                                {
+                                    <p>NO </p>
+                                }
+
+                                @*@Html.DisplayFor(modelItem => item.anual)*@
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "insert", "Feriados", new { id = item.id }, new { @class = "btn btn-primary text-light" })
+                                @Html.ActionLink("Eliminar", "Eliminar", "Feriados", new { id = item.id }, new { @class = "btn btn-danger text-light" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+

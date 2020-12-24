@@ -1,0 +1,84 @@
+﻿
+@using ControlAccesoPersonal.Models;
+@using ControlAccesoPersonal.DataTransferObjects;
+@model Empleados
+
+@{
+    ViewData["Title"] = "Insert";
+    string accion = Model == null ? "Nuevo" : "Editar";
+
+}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div>
+
+            <h1 class="text-center">@accion Empleado</h1>
+        </div>
+    </div>
+    <div class="card-body">
+        <form asp-action=@accion class="form-check">
+            <div class="card-column">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div hidden class="form-group">
+                    <label hidden asp-for="id" class="control-label"></label>
+                    <input hidden asp-for="id" class="form-control" />
+                    <span hidden asp-validation-for="id" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="float-sm-left float-xl-none float-md-none col-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="empresa" class="control-label"></label>
+                            <select asp-for="empresa" class="form-control" asp-items="@ViewBag.listaEmpresa"></select>
+                            <span asp-validation-for="empresa" class="text-danger"></span>
+
+
+                        
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="persona" class="control-label"></label>
+                            <select asp-for="persona" class="form-control" asp-items="@ViewBag.listaPersonas"></select>
+                            <span asp-validation-for="persona" class="text-danger"></span>
+
+
+                        </div>
+                    </div>
+
+                    <div class="float-sm-right float-xl-none float-md-none col-6 col-xs-12">
+
+
+                        <div class="form-group">
+                            <label asp-for="sueldo" class="control-label"></label>
+                            <input asp-for="sueldo" value="0" class="form-control" />
+                            <span asp-validation-for="sueldo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="cargo" class="control-label"></label>
+                            <input asp-for="cargo" value="No Especificado" class="form-control" />
+                            <span asp-validation-for="cargo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="articulo" /> @Html.DisplayNameFor(model => model.articulo)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-group">
+
+                <button asp-action=@accion asp-controller="Empleados" class="btn btn-dark">@accion</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

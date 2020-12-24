@@ -1,0 +1,85 @@
+﻿@model ControlAccesoPersonal.Models.Feriados
+
+@{
+    ViewData["Title"] = "Insert";
+
+    string accion = Model == null ? "Nuevo" : "Editar";
+
+}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div>
+
+            <h1 class="text-center">@accion Feriado</h1>
+        </div>
+    </div>
+    <div class="card-body">
+        <form asp-action=@accion class="form-check">
+            <div class="card-column">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div hidden class="form-group">
+                    <label hidden asp-for="id" class="control-label"></label>
+
+                    <input asp-for="id" class="form-control" />
+
+                    <span asp-validation-for="id" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="float-sm-left float-xl-none float-md-none col-6 col-xs-12">
+
+                        <div class="form-group">
+                            <label asp-for="fecha" class="control-label"></label>
+                            @if (Model != null)
+                            {
+                                <input asp-for="fecha" class="form-control" />
+                            }
+                            else
+                            {
+                                <input asp-for="fecha" class="form-control" value=@DateTime.Now />
+                            }
+                            <span asp-validation-for="fecha" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="anual" /> @Html.DisplayNameFor(model => model.anual)
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="float-sm-right float-xl-none right float-md-none col-6 col-xs-12">
+
+                        <div class="form-group">
+                            <label asp-for="nombre" class="control-label"></label>
+                            <input asp-for="nombre" class="form-control" />
+                            <span asp-validation-for="nombre" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="description" class="control-label"></label>
+                            <input asp-for="description" class="form-control" />
+                            <span asp-validation-for="description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+                <div class="form-group">
+
+                    <button asp-action=@accion asp-controller="feriados" class="btn btn-dark">@accion</button>
+
+                </div>
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

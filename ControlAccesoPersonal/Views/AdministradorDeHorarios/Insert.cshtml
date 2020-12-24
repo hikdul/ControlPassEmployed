@@ -1,0 +1,81 @@
+﻿@model ControlAccesoPersonal.Models.AdmoHorarios
+
+@{
+    ViewData["Title"] = "Insert";
+    string accion = Model == null ? "Nuevo" : "Editar";
+
+}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div>
+
+            <h1 class="text-center">@accion Administrdos De Horarios</h1>
+        </div>
+    </div>
+    <div class="card-body">
+        <form asp-action=@accion class="form-check">
+            <div class="card-column">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div hidden class="form-group">
+                    <label hidden asp-for="id" class="control-label"></label>
+                    <input hidden asp-for="id" class="form-control" />
+                    <span hidden asp-validation-for="id" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="float-sm-left float-xl-none float-md-none col-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Empleado" class="control-label"></label>
+                            @*<input type="text" id="rpru" class="form-control" />*@
+                            <select  asp-for="Empleado" class="form-control" asp-items="@ViewBag.listaPE"></select>
+                            <span asp-validation-for="Empleado" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="horario" class="control-label"></label>
+                            <select asp-for="horario" class="form-control" asp-items="@ViewBag.listaH"></select>
+                            @*<input asp-for="horario" class="form-control" />*@
+                            <span asp-validation-for="horario" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="float-sm-right float-xl-none float-md-none col-6 col-xs-12">
+
+                        <div class="form-group">
+                            <label asp-for="fechaInicio" class="control-label"></label>
+                            <input asp-for="fechaInicio" class="form-control" />
+                            <span asp-validation-for="fechaInicio" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="fechaAcaba" class="control-label"></label>
+                            <input asp-for="fechaAcaba" class="form-control" />
+                            <span asp-validation-for="fechaAcaba" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+
+                <button asp-action=@accion asp-controller="AdministradorDeHorarios" class="btn btn-dark">@accion</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@*<script>
+
+    let val = document.getElementById('rpru');
+    let vol = document.getElementById('pru');
+
+    val.addEventListener('focus', () => {
+        val.value = vol.value;
+    })
+
+</script>*@
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
